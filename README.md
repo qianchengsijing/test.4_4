@@ -130,3 +130,130 @@ int main()
 	test();
 	return 0;
 }
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+int main()
+{
+	//int i = 0;
+	int arr[]={1,2,3,4,5,6,7,8,9,10};
+	int i = 0;
+
+	for(i=0;i<=12;i++)
+	{
+		printf("hehe\n");
+		arr[i] = 0;
+	}
+
+	return 0;
+}
+int main()
+{
+	//对比Debng和Release版本的不同
+地址在栈中是先使用高地址，再使用低地址
+	int i = 0;
+	int arr[]={1,2,3,4,5,6,7,8,9,10};
+	printf("%p\n",&i);
+	printf("%p\n",arr);
+	system("pause");
+	return 0;
+}
+实现strcpy函数
+void my_strcpy (char* dest,char* src)//第一种算法
+{
+	//交换b i t
+	while(*src != '\0')
+	{
+	    *dest = *src;
+	    src++;
+	    dest++;
+	}
+	*dest = *src;//最后交换\0
+}
+void my_strcpy (char* dest,char* src)//第二种算法（优化）
+{
+	while(*dest++ = *src++)//先解引用使用再++
+	{
+		;
+		//*dest++ == *src++;
+	   /* *dest = *src;
+	    src++;
+	    dest++;*/
+	}
+	*dest = *src;
+}
+void my_strcpy (char* dest,char* src)//第三种算法（再优化）
+{
+	assert(dest != NULL);//断言，引用头文件#include <assert.h>
+	assert(src != NULL);//断言(检查指针的有效性）
+	while(*dest++ = *src++)
+	{
+	   ;
+	}
+	*dest = *src;
+}
+void my_strcpy (char* dest,const char* src)//第四种算法（再优化）
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	//while(*src++ = *dest++)//const修饰*src,不能改变*src的值
+	while(*dest++ = *src++)
+	{
+	   ;
+	}
+	*dest = *src;
+}
+char* my_strcpy (char* dest,const char* src)//第四种算法（再优化）有返回类型
+{
+	char* ret = dest;//用ret接收目的地指针的地址
+	assert(dest != NULL);
+	assert(src != NULL);
+	
+	while(*dest++ = *src++)
+	{
+	   ;
+	}
+	*dest = *src;
+	return ret;//返回dest的地址（arr1）给主函数打印
+}
+int main()
+{
+	char arr1[]="##############";
+	char arr2[]="bit";//b i t \0
+	my_strcpy(arr1,arr2);
+	//my_strcpy(arr1,NULL);//若为这种情况，需要先用assert判断指针的可使用性
+	//strcpy(arr1,arr2);
+	printf("%s\n",arr1);
+	return 0;
+}
+int main()
+{
+	const int num = 10;
+	int n = 20;
+	const int* p = &num;
+	//const 放在指针变量*左边时，修饰*p，不能通过p来改变*p的值，可以改变p
+	int *const p = &num;
+	//const 放在指针变量*y右边时，修饰p，不能改变p的地址，可以改变*p
+	*p = 20;
+	p = &n;
+	printf("%d\n",num);
+	return 0;
+}
+int my_strlen (const char* str)
+{
+	int count = 0;
+	assert(str != NULL);
+	while(*str != '\0')
+	{
+		count++;
+		str++;
+	}
+	return count;
+}
+int main()
+{
+	char arr[]="abcdef";
+	int len = my_strlen(arr);
+	printf("%d\n",len);
+	return 0;
+}
